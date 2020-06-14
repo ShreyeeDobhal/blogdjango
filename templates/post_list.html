@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="col-sm-8 col-sm-offset-3">
+    <h1>Stay Fit ,Stay Healthy!</h1>
+    <!--h1>{{title}} is working</h1>-->
+
+
+    <h5> ALERT :
+        COVID-19 is an emerging, rapidly evolving situation.</br>
+        Get the latest public health information from CDC:<a href="https://www.coronavirus.gov"</a> </br>
+        Get the latest research from NIH:<a href="https://www.nih.gov/coronavirus"</a></br>
+        Find NCBI SARS-CoV-2 literature, sequence, and clinical content:<a href="https://www.ncbi.nlm.nih.gov/sars-cov-2/"</a></br>
+
+
+    </h5>
+
+
+
+
+
+<form method="GET" action="">
+    <input type="text" name="q" placeholder="Search posts" value="{{request.GET.q}}"/>
+    <input type="submit" value="Search"/>
+</form>
+<div class="row">
+{% for obj in object_list %}
+    <div class="row">
+  <div class="col-sm-8 jumbotron">
+    <div class="thumbnail">
+        {% if obj.image%}
+         <img src="{{obj.image.url}}" class="img-responsive" />
+        {%endif%}
+      <!img src="..." alt="...">
+      <div class="caption">
+          <h3><a href="{{obj.get_absolute_url}}">{{obj.title}}</br>
+              <small>{{obj.timestamp|timesince}} ago</small></a></h3>
+
+          {% if instance.user.get_full_name %}
+          <p>Author{{object.user.get_full_name}}</p>
+          {%endif%}
+        <p>{{obj.content|linebreaks|truncatechars:120}}</p>
+        <p><a href="{{obj.get_absolute_url}}" class="btn btn-primary" role="button">View</a> </p>
+      </div>
+    </div>
+  </div>
+
+    </div>
+     <hr/>
+
+{% endfor %}
+    </div>
+    <div class="pagination"
+         <span class="step_links">
+             {% if object_list.has_previous %}
+             <a href="?page={{object_list.previous_page_number}}">previous</a>
+             {% endif %}
+             <span class="current">
+                 Page{{object_list.number}} of {{object_list.paginator.num_pages}}
+             </span>
+             {% if object_list.has_next %}
+             <a href="?page={{objects.next_page_number}}"next</a>"
+             {% endif %}
+         </span>
+{% endblock content%}

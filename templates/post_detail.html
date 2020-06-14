@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load urlify %}
+{% block head_title %}{{instance.title }} | {{block.super }}{%endblock head_title%}
+<style xmlns="http://www.w3.org/1999/html">
+{% block style %}
+h1{
+color:#458;
+}
+{% endblock style %}
+    </style>
+<body>
+{% block content %}
+<div class="col-sm-8 col-sm-offset-2 jumbotron">
+    {%if instance.image %}
+    <img src="{{instance.image.url}}" class="img-responsive" />
+    {%endif%}
+    <h1>{{title}}</br>
+        <small>{{instance.timestamp}}</small></h1>
+    {% if instance.user.get_full_name %}
+<p>Author: {{ instance.user.get_full_name }}</p>
+{%endif%}
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://{{request.build_absolute_uri}}">
+Share on Facebook
+</a>
+
+<a href="https://twitter.com/home?status=  {{instance.content|truncatechars:80|urlify}}%20{{request.build_absolute_uri}}">
+Share on Twitter
+</a>
+
+<a href='https://plus.google.com/share?url={{request.build_absolute_uri}}'>Share on Google+</a>
+
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}">
+Share on Linkedin</a>
+
+
+{{instance.content|linebreaks}}</br>
+
+
+</div>
+
+
+{% endblock content %}
+
+</body>
+</html>

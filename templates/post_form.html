@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div class="col-sm-8 col-sm-offset-3">
+{{block.super}}
+<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+<h1>FORM</h1>
+{{form.as_p}}
+<input type="submit"class="butn btn-default" value="Create Post"/>
+</form>
+{% endblock content %}
+</div>
+</body>
+</html>
